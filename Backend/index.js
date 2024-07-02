@@ -11,7 +11,7 @@ const bodyParser = require('body-parser');
 dotenv.config();
 
 app.use(cors({
-  origin: '',
+  origin: 'https://e-commerce-website-oyqj.vercel.app',
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 }));
