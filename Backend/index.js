@@ -10,6 +10,7 @@ const bodyParser = require('body-parser');
 
 dotenv.config();
 
+// CORS configuration
 app.use(cors({
   origin: 'https://e-commerce-website-oyqj.vercel.app',
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
@@ -23,16 +24,21 @@ const UserRouter = require('./Router/UserRouter');
 const AdminRouter = require('./Router/AdminRouter');
 const CompanyRouter = require('./Router/CompanyRouter');
 
-mongoose.connect(process.env.MongoUrl).then(() => {
-  console.log("data base is connected");
+mongoose.connect(process.env.MongoUrl, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+}).then(() => {
+  console.log("Database is connected");
 }).catch((err) => {
-  console.log(err);
+  console.error("Error connecting to database:", err);
 });
 
+// Use routers
 app.use('/home', UserRouter);
 app.use('/Admin', AdminRouter);
 app.use('/company', CompanyRouter);
 
+// Serve static files
 app.get('/', (req, res, next) => {
   try {
     res.sendFile(path.join(__dirname, 'Frontend/app/build', 'index.html'));
@@ -41,6 +47,8 @@ app.get('/', (req, res, next) => {
   }
 });
 
+// Start server
+
 app.listen(5000, () => {
-  console.log(`port 5000 is connected`);
+  console.log(`Server is running on port 5000`);
 });
