@@ -10,7 +10,11 @@ const bodyParser = require('body-parser');
 
 dotenv.config();
 
-app.use(cors());
+app.use(cors({
+  origin: '',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+}));
 
 app.use(express.static(path.join(__dirname, 'Frontend/app/build')));
 app.use(express.json());
